@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheduled Task Message</title>
+</head>
+<body>
+<h1>Scheduled Task Output - can I change this?</h1>
+<div id="message">Loading...</div>
+
+<script>
+    async function fetchMessage() {
+        try {
+            const response = await fetch("http://localhost:8080/latestMessage");
+            const message = await response.text();
+            document.getElementById("message").innerText = message;
+        } catch (error) {
+            document.getElementById("message").innerText = "Error fetching message";
+            console.error("Error fetching message:", error);
+        }
+    }
+
+    // Fetch the message every 5 seconds
+    setInterval(fetchMessage, 5000);
+
+    // Fetch the message once on page load
+    fetchMessage();
+</script>
+</body>
+</html>
